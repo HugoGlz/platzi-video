@@ -2,8 +2,10 @@ import React from 'react';
 import { hydrate } from 'react-dom';
 import Home from '../pages/containers/home';
 // import Playlist from './src/playlist/components/playlist';
-import data from '../api.json';
+// import data from '../api.json';
 // console.log('Hola mundo!' )
+
+import normalizeData from '../schemas/'
 
 import { Provider } from 'react-redux';
 
@@ -11,9 +13,12 @@ import { createStore } from 'redux';
 
 import reducerFn from '../reducers/data'
 
+console.log('normalizer', normalizeData);
+
 const initialState = {
 	data: {
-		...data
+		entities: normalizeData.entities,
+		categories: normalizeData.result.categories
 	},
 	search: []
 }

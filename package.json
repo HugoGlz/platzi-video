@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "express": "4.16.2",
+    "normalizr": "^3.3.0",
     "prop-types": "15.6.0",
     "react": "16.1.1",
     "react-dom": "16.1.1",
