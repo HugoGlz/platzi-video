@@ -29,15 +29,20 @@
     "style-loader": "0.19.0",
     "url-loader": "0.6.2",
     "webpack": "3.8.1",
-    "webpack-dev-server": "2.9.3"
+    "webpack-dev-server": "2.9.3",
+    "redux-logger": "^3.0.6",
+    "redux-devtools-extension": "^2.13.5"
   },
   "dependencies": {
     "express": "4.16.2",
+    "immutable": "^4.0.0-rc.12",
     "normalizr": "^3.3.0",
     "prop-types": "15.6.0",
     "react": "16.1.1",
     "react-dom": "16.1.1",
     "react-redux": "^5.1.1",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "redux-immutable": "^4.0.0",
+    "redux-thunk": "^2.3.0"
   }
 }

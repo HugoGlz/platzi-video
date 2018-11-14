@@ -5,29 +5,66 @@ import Home from '../pages/containers/home';
 // import data from '../api.json';
 // console.log('Hola mundo!' )
 
-import normalizeData from '../schemas/'
-
 import { Provider } from 'react-redux';
 
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 
-import reducerFn from '../reducers/data'
+import reducerFn from '../reducers/'
 
-console.log('normalizer', normalizeData);
+import { Map as map } from 'immutable';
 
+import reduxLogger from 'redux-logger';
+
+import thunk from 'redux-thunk';
+
+import { composeWithDevTools } from 'redux-devtools-extension';
+
+//console.log('normalizer', normalizeData);
+
+/*
 const initialState = {
 	data: {
 		entities: normalizeData.entities,
-		categories: normalizeData.result.categories
+		categories: normalizeData.result.categories,
+		search: [],
 	},
-	search: []
+	modal: {
+		visibility: false,
+		mediaId: null
+	}
+}*/
+
+
+function loggerOld (objeto){
+	console.log('objeto',objeto);
+	let {getState, dispatch} = objeto;
+	return (next) => {
+		return (action) => {
+			console.log('este es mi viejo estado', getState().toJS())
+			console.log('vamos a enviar esta accion', action)
+			const response = next(action);
+			console.log('este es mi nuevo estado', getState().toJS())
+			return response;
+		}
+	}
+}
+
+const logger = ({getState, dispatch}) => next => action => {
+	console.log('este es mi viejo estado', getState().toJS())
+	console.log('vamos a enviar esta accion', action)
+	const response = next(action);
+	console.log('este es mi nuevo estado', getState().toJS())
+	return response;
 }
 
 
 const store = createStore(
 	reducerFn,
-	initialState,
-	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+	map(),
+	composeWithDevTools(
+		applyMiddleware(reduxLogger, thunk)
+	)
+	//window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 console.log(store.getState());

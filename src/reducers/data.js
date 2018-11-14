@@ -1,25 +1,23 @@
-function data (state, action){
+import normalizeData from '../schemas/'
+
+import { fromJS } from 'immutable';
+
+import { SEARCH_ENTITIES } from '../action-types';
+
+const initalState = fromJS({
+	entities: normalizeData.entities,
+	categories: normalizeData.result.categories,
+	search: ''
+})
+
+function data (
+	state = initalState, 
+	action){
+	
 	switch (action.type){
-		case 'SEARCH_VIDEO': {
-			if (!action.payload.query){
-				return {
-					...state,
-					search: []
-				}
-			}
-			
-			const list = state.data.categories[2].playlist;
-			
-			const upperCaseValue = action.payload.query.toUpperCase();
-			
-			const results = list.filter( item => {
-				return item.author.toUpperCase().includes(upperCaseValue)
-			})
-			
-			return {
-				...state,
-				search: results
-			}
+		case SEARCH_ENTITIES: {
+			const newState = action.payload.query ? state.set('search', action.payload.query) : state;
+			return newState;
 		}
 		default:
 			return state
